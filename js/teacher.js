@@ -59,6 +59,14 @@ class Teacher {
         }
     }
 
+    isCellMarked(id){
+        return this.cellList.get(id).isMark();
+    }
+
+    cellCanChange(id){
+        return this.cellList.get(id).isCanChange();
+    }
+
 }
 
 /********************************************************************************************************** */

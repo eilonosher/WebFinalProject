@@ -4,6 +4,7 @@ var endTime;
 var user;
 var students;
 var teachers;
+var userId;
 $(document).ready(function () {
     console.log("ready!");
     user = localStorage.getItem('userName');
@@ -52,22 +53,26 @@ function buildTable() {
 
 function handleEvnet(id) {
     var selectedName = id.split("-")[0];
-    var selectedTime = id.split("-")[1];
+    var selectedTime = id.split("-")[1];    
     let teacher = teacherMap.get(selectedName);
+    if(!teacher.cellCanChange(selectedTime)) return;
+    if(teacher.isCellMarked(selectedTime)){
+        if (confirm("לבטל את הפגישה?")) {
+            teacher.userChangeHour(user,selectedTime);
+            deleteFromDB(selectedName,user,teacher,selectedTime);
+            return;
+        } else 
+            return;
+    }
    let checkingIfAnotherHourMark =  teacher.checkingIfAnotherHourMark(user);
     if(checkingIfAnotherHourMark){
         teacher.userChangeHour(user,selectedTime);
-        deleteFromDB(selectedName,user,teacher,selectedTime)
+        deleteFromDB(selectedName,user,teacher,selectedTime);
     }
     else{
         updateDataBase(selectedName,selectedTime)
     }
-    let check = teacher.updateCell(user,selectedTime,"green");
-    //read
-    
-    //set
-    
-    // console.log(commentsRef)
+    teacher.updateCell(user,selectedTime,"green");
 }
 
 function updateDataBase(selectedName,selectedTime){
@@ -90,12 +95,7 @@ function deleteFromDB(selectedName,user,teacher,selectedTime){
                 deleteNode(item.key,selectedName,user);
             keys.push(item.key);
         });
-         //let check = teacher.updateCell(user,selectedTime,"green");
-    //read
-    
-    //set
-         updateDataBase(selectedName,selectedTime)
-        
+        updateDataBase(selectedName,selectedTime)     
 
     });
 }
@@ -105,8 +105,8 @@ function deleteNode(key,selectedName,user){
 }
 function initEvnet() {
     $('#table tr td').click(function () {
+        console.log(this)
         let mark = handleEvnet($(this).attr('id'));
-        console.log(mark)
     });
 }
 
@@ -125,6 +125,12 @@ function initDataBase() {
     firebase.initializeApp(firebaseConfig);
 
     // Initialize Firebase
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            userId = user;
+        }
+        
+    });
     firebase.database().ref('//').once('value').then(function (snapshot) {
         students = snapshot.val().student;
         startTime = snapshot.val().hour.start;

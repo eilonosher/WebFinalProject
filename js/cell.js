@@ -36,6 +36,7 @@ class Cell {
             return;
         document.getElementById(this.teacher + "-" + this.time).style.backgroundColor = color;
         this.addOrRemoveIcon(color);
+        this.mark = true;
         return this.mark;
     }
 
@@ -53,7 +54,16 @@ class Cell {
         }
         else{
             document.getElementById(this.teacher + "-" + this.time).innerHTML= "<i "+this.iconId+" class='fa fa-trash'></i>";
+            this.mark = true;
         }
+    }
+
+    isMark(){
+        return this.mark;
+    }
+
+    isCanChange(){
+        return this.canChange;
     }
 }
 
