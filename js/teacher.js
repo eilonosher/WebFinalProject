@@ -67,6 +67,10 @@ class Teacher {
         return this.cellList.get(id).isCanChange();
     }
 
+    getStudentRegisteredTime(student){
+        return this.registeredStudents.get(student);
+    }
+
 }
 
 /********************************************************************************************************** */

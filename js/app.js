@@ -55,15 +55,15 @@ function handleEvnet(id) {
     var selectedName = id.split("-")[0];
     var selectedTime = id.split("-")[1];    
     let teacher = teacherMap.get(selectedName);
-    if(!teacher.cellCanChange(selectedTime)) return;
     if(teacher.isCellMarked(selectedTime)){
-        if (confirm("לבטל את הפגישה?")) {
+        if (confirm("Cancel the meeting?")) {
             teacher.userChangeHour(user,selectedTime);
             deleteFromDB(selectedName,user,teacher,selectedTime);
             return;
         } else 
-            return;
+        return;
     }
+    if(!teacher.cellCanChange(selectedTime) || isAlreadyRegisteredThisTime(selectedTime)) return;
    let checkingIfAnotherHourMark =  teacher.checkingIfAnotherHourMark(user);
     if(checkingIfAnotherHourMark){
         teacher.userChangeHour(user,selectedTime);
@@ -87,6 +87,16 @@ function updateDataBase(selectedName,selectedTime){
     });
 }
 
+function isAlreadyRegisteredThisTime(time){
+    for (let [key, teacher] of teacherMap)  {
+        let registeredTime = teacher.getStudentRegisteredTime(user);
+        if(registeredTime != null && registeredTime == time){
+            alert("You are already registered to another teacher by that time")
+            return true;
+        }
+    }
+    return false;
+}
 function deleteFromDB(selectedName,user,teacher,selectedTime){
     firebase.database().ref('/teacher/' + selectedName + '/list').once('value').then(function (snapshot) {
         let keys = [];
@@ -105,7 +115,6 @@ function deleteNode(key,selectedName,user){
 }
 function initEvnet() {
     $('#table tr td').click(function () {
-        console.log(this)
         let mark = handleEvnet($(this).attr('id'));
     });
 }
