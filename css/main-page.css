@@ -2,6 +2,9 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    table-layout: fixed;
+    text-align: center;
+    background-color: white;
   }
   
   td, th {
@@ -14,6 +17,10 @@ table {
   }
   #teacher {
     background-color: #dddddd;
+  }
+
+  #allElements{
+    display: none;
   }
 
   #loading {
@@ -33,6 +40,20 @@ table {
     animation: spin 2s linear infinite;
   }
 
+  #upContent{
+    background-color: black;
+    color: white;
+  }
+
+  #helloUser{
+    color: white;
+  }
+
+  #about{
+    color: white;
+  }
+
+
   @-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }
     100% { -webkit-transform: rotate(360deg); }
@@ -42,3 +63,5 @@ table {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+  
+
