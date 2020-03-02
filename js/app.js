@@ -8,18 +8,22 @@ var userId;
 $(document).ready(function () {
     console.log("ready!");
     user = localStorage.getItem('userName');
+    document.getElementById("helloUser").innerHTML = "Hello " + user + "'s parents";
     initDataBase();
 
 
 });
 
 function hideLoading() {
-    var x = document.getElementById("loading");
-    if (x.style.display === "none") {
-        x.style.display = "block";
+    let loader = document.getElementById("loading");
+    let allElements = document.getElementById("allElements");
+    if (loader.style.display === "none") {
+        loader.style.display = "block";
     } else {
-        x.style.display = "none";
+        loader.style.display = "none";
     }
+    allElements.style.display = "block";
+
 }
 function writeTheHourToHtmlPage() {
     for (let hour = this.startTime; hour < this.endTime; hour++) {
@@ -31,7 +35,7 @@ function writeTheHourToHtmlPage() {
 
 }
 function addTheHoursCol() {
-    document.getElementById("teacher").innerHTML += "<th></th>";
+    document.getElementById("teacher").innerHTML += "<th>Time</th>";
     for (let hour = this.startTime; hour < this.endTime; hour++) {
         document.getElementById(hour + "00").innerHTML += "<td>" + hour + "00" + "</td>";
         document.getElementById(hour + "20").innerHTML += "<td>" + hour + "20" + "</td>";
@@ -55,10 +59,10 @@ function handleEvnet(id) {
     var selectedName = id.split("-")[0];
     var selectedTime = id.split("-")[1];    
     let teacher = teacherMap.get(selectedName);
-    if(teacher.isCellMarked(selectedTime)){
+    if(teacher.isCellMarked(selectedTime) && teacher.cellCanChange(selectedTime)){
         if (confirm("Cancel the meeting?")) {
             teacher.userChangeHour(user,selectedTime);
-            deleteFromDB(selectedName,user,teacher,selectedTime);
+            deleteFromDB(selectedName,user,teacher,selectedTime,true);
             return;
         } else 
         return;
@@ -67,7 +71,7 @@ function handleEvnet(id) {
    let checkingIfAnotherHourMark =  teacher.checkingIfAnotherHourMark(user);
     if(checkingIfAnotherHourMark){
         teacher.userChangeHour(user,selectedTime);
-        deleteFromDB(selectedName,user,teacher,selectedTime);
+        deleteFromDB(selectedName,user,teacher,selectedTime,false);
     }
     else{
         updateDataBase(selectedName,selectedTime)
@@ -97,7 +101,7 @@ function isAlreadyRegisteredThisTime(time){
     }
     return false;
 }
-function deleteFromDB(selectedName,user,teacher,selectedTime){
+function deleteFromDB(selectedName,user,teacher,selectedTime,onlyDelete){
     firebase.database().ref('/teacher/' + selectedName + '/list').once('value').then(function (snapshot) {
         let keys = [];
         snapshot.forEach(function (item) {
@@ -105,6 +109,7 @@ function deleteFromDB(selectedName,user,teacher,selectedTime){
                 deleteNode(item.key,selectedName,user);
             keys.push(item.key);
         });
+        if(!onlyDelete)
         updateDataBase(selectedName,selectedTime)     
 
     });
