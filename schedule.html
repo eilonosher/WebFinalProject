@@ -14,48 +14,51 @@
   <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <!-- css -->
   <link href="css/main-page.css" rel="stylesheet">
-  
+
 </head>
 
 <body>
   <div id="loading">
   </div>
-  <div id="allElements"> 
+  <div id="allElements">
     <div id="upContent">
       <div class="collapse bg-inverse" id="navbarHeader">
         <div class="container">
           <div class="row">
-            <div  class="col-sm-8 py-4">
+            <div class="col-sm-8 py-4">
               <h4 class="text-white">About</h4>
-              <p class="text-muted">It is a system for selecting the meeting for each teacher. Please select the time that is convenient for each teacher.
-                Please note that a teacher who has already been selected at his or her time slot is painted in red and his or her chosen teacher is not painted.
+              <p class="text-muted">It is a system for selecting the meeting for each teacher. Please select the time
+                that is convenient for each teacher.
+                Please note that a teacher who has already been selected at his or her time slot is painted in red and
+                his or her chosen teacher is not painted.
                 Good luck!</p>
-              </div>
             </div>
           </div>
         </div>
-        <div class="navbar navbar-inverse bg-inverse">
-          <div class="container d-flex justify-content-between">
-            <a id="helloUser" href="index.html" class="navbar-brand"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+      </div>
+      <div class="navbar navbar-inverse bg-inverse">
+        <div class="container d-flex justify-content-between">
+          <a id="helloUser" href="index.html" class="navbar-brand"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
             aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
             <span id="about">About us</span>
           </button>
         </div>
       </div>
     </div>
-    
+
     <table id="myTable">
       <tbody id="table">
         <tr id="teacher">
-          
+
         </tr>
       </tbody>
     </table>
-    
+
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
       <div class="container text-center">
         <small>Copyright &copy; Roni & Eilon</small>
@@ -68,17 +71,19 @@
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
   <!-- Bootstrap -->
-  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
-    integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-    integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- js -->
-    <script src="js/app.js"></script>
-    <script src="js/teacher.js"></script>
-    <script src="js/cell.js"></script>
-  </body>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <!-- js -->
+  <script src="js/app.js"></script>
+  <script src="js/teacher.js"></script>
+  <script src="js/cell.js"></script>
+</body>
 
 </html>
