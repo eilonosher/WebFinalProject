@@ -5,12 +5,12 @@ var user;
 var students;
 var teachers;
 var userId;
+var ready = false;
 $(document).ready(function () {
     console.log("ready!");
     user = localStorage.getItem('userName');
     document.getElementById("helloUser").innerHTML = "Hello " + user + "'s parents";
     initDataBase();
-
 
 });
 
@@ -23,6 +23,7 @@ function hideLoading() {
         loader.style.display = "none";
     }
     allElements.style.display = "block";
+    ready = true;
 
 }
 function writeTheHourToHtmlPage() {
@@ -59,6 +60,7 @@ function handleEvnet(id) {
     var selectedName = id.split("-")[0];
     var selectedTime = id.split("-")[1];    
     let teacher = teacherMap.get(selectedName);
+    ready = false;
     if(teacher.isCellMarked(selectedTime) && teacher.cellCanChange(selectedTime)){
         if (confirm("Cancel the meeting?")) {
             teacher.userChangeHour(user,selectedTime);
@@ -89,6 +91,7 @@ function updateDataBase(selectedName,selectedTime){
         name: user
 
     });
+    ready = true;
 }
 
 function isAlreadyRegisteredThisTime(time){
@@ -144,6 +147,11 @@ function initDataBase() {
             userId = user;
         }
         
+    });
+    var ref = firebase.database().ref("teacher");
+    firebase.database().ref().on('value', function(snapshot) {
+        if(ready)
+        location.reload();
     });
     firebase.database().ref('//').once('value').then(function (snapshot) {
         students = snapshot.val().student;
